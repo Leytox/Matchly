@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MatchMedia
+![AI giving two people a recommendation about media content](https://github.com/user-attachments/assets/0f106d4f-e10a-4552-b516-7e22b19b548b)
+A full-stack web application that helps users find personalized movie, book, and music recommendations based on their preferences.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+The Movie, Book, and Music Recommendation System is a web application built using NextJS and ChakraUI. It allows users to select their preferences for movies, books, and music, and the application then provides personalized recommendations based on the combined preferences.
+
+## Features
+
+- **Movie Recommendations**: Users can select their preferred movie genres, and the application will retrieve and display a list of recommended movies that match their preferences.
+- **Book Recommendations**: Users can select their preferred book genres, and the application will retrieve and display a list of recommended books that match their preferences.
+- **Music Recommendations**: Users can select their preferred music genres, and the application will retrieve and display a list of recommended songs/artists that match their preferences.
+- **Responsive Design**: The application is designed to be responsive and accessible on various devices, from desktop to mobile.
+- **Intuitive User Interface**: The application uses ChakraUI to provide a clean and modern user interface that is easy to navigate.
+
+## Technologies Used
+
+- **Front-end**: NextJS, Shadcn, React
+- **APIs**: OMDB, Google Books API, Spotify API
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js(v23 and higher) or Bun (v1.1 or higher)
+- npm or yarn or bun
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/Leytox/MatchMedia.git
+   ```
 
-## Learn More
+2. Navigate to the project directory:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   cd MatchMedia
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Install the dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   bun install
+   ```
 
-## Deploy on Vercel
+4. Create a `.env` file in the root directory and add the following environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```
+   GROQ_API_KEY=your_groq_api_key
+   OMDB_API_KEY=your_omdb_api_key
+   GOOGLE_BOOKS_API_KEY=your_google_books_api_key
+   SPOTIFY_CLIENT_ID=your_spotify_client_id
+   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Replace the placeholders with your actual API keys and credentials.
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   bun dev
+   ```
+
+   The application should now be running at `http://localhost:3000`.
+
+## Usage
+
+1. Upon launching the application, users will see two panels where they can select their preferred movie, book, and music genres.
+2. After selecting their preferences, users can click the "Find Recommendations" button to retrieve and display personalized recommendations for movies, books, and music.
+3. The application will show the recommended items with relevant details, such as titles, descriptions, and ratings (where available).
+
+## Contributing
+
+If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your feature or bug fix
+3. Make your changes and commit them
+4. Push your changes to your fork
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License
