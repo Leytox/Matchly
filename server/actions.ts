@@ -39,6 +39,7 @@ export const getMoviesRecomendations = async (
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
+        credentials: "include",
         body: JSON.stringify({
           model: "llama3-8b-8192",
           messages: [
@@ -58,6 +59,8 @@ export const getMoviesRecomendations = async (
         }),
       },
     );
+    if (!response.ok)
+      throw new Error(`Error fetching data: ${response.statusText}`);
     const data = await response.json();
     return data.choices[0].message.content.split("\n");
   } catch (error) {
