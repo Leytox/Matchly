@@ -87,7 +87,6 @@ export default function Movies() {
   const [loading, setLoading] = useState(false);
   const [person1Categories, setPerson1Categories] = useState<string[]>([]);
   const [person2Categories, setPerson2Categories] = useState<string[]>([]);
-  const [isCategoriesVisible, setIsCategoriesVisible] = useState(true);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const displayedCategories = showAllCategories
     ? [...initialCategories, ...additionalCategories]
@@ -129,103 +128,91 @@ export default function Movies() {
     <main className="fullscreen-centered">
       <div className="container flex flex-col items-center px-2 md:px-0">
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
-          Movie Recommendations
+          Movies Recommendations
         </h1>
         {!isGenerated && (
           <>
             <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-row items-center justify-between mb-4">
+                <div />
+                <div className="flex flex-row gap-2 items-center relative translate-x-4">
                   <div className="size-6">
                     <Image
-                      src={isPerson2 ? "/red.svg" : "/blue.svg"}
+                      src={"/blue.svg"}
                       width={48}
                       height={48}
                       alt={"person"}
+                      className={`${isPerson2 ? "grayscale" : ""}`}
+                    />
+                  </div>
+                  <Switch
+                    id="person-switch"
+                    checked={isPerson2}
+                    onCheckedChange={setIsPerson2}
+                  />
+                  <div className="size-6 absolute right-0 translate-x-8 translate-y-1">
+                    <Image
+                      src={"/red.svg"}
+                      width={48}
+                      height={48}
+                      alt={"person"}
+                      className={`${!isPerson2 ? "grayscale" : ""}`}
                     />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleClearPreferences}
-                    disabled={activeCategories.length === 0}
-                  >
-                    <X className="h-4 w-4" /> Clear
-                  </Button>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="person-switch">Switch</Label>
-                    <Switch
-                      id="person-switch"
-                      checked={isPerson2}
-                      onCheckedChange={setIsPerson2}
-                    />
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsCategoriesVisible(!isCategoriesVisible)}
-                  >
-                    {isCategoriesVisible ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearPreferences}
+                  disabled={activeCategories.length === 0}
+                >
+                  <X /> Clear
+                </Button>
               </div>
-              {isCategoriesVisible && (
-                <>
-                  <div className="flex flex-wrap gap-2">
-                    {displayedCategories.map((category) => (
-                      <Button
-                        key={category}
-                        variant="outline"
-                        className={cn(
-                          "transition-colors",
-                          activeCategories.includes(category)
-                            ? isPerson2
-                              ? "bg-[#E26058] hover:bg-[#E26058]/90"
-                              : "bg-[#8DC9FA] hover:bg-[#8DC9FA]/90"
-                            : "",
-                        )}
-                        onClick={() => {
-                          if (activeCategories.includes(category)) {
-                            setActiveCategories(
-                              activeCategories.filter((c) => c !== category),
-                            );
-                          } else {
-                            setActiveCategories([
-                              ...activeCategories,
-                              category,
-                            ]);
-                          }
-                        }}
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex justify-center">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setShowAllCategories(!showAllCategories)}
-                    >
-                      {showAllCategories ? (
-                        <>
-                          Show Less Categories <ChevronUp />
-                        </>
-                      ) : (
-                        <>
-                          Show More Categories <ChevronDown />{" "}
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </>
-              )}
+              <div className="flex flex-wrap gap-2">
+                {displayedCategories.map((category) => (
+                  <Button
+                    key={category}
+                    variant="outline"
+                    className={cn(
+                      "transition-colors",
+                      activeCategories.includes(category)
+                        ? isPerson2
+                          ? "bg-[#E26058] hover:bg-[#E26058]/90"
+                          : "bg-[#8DC9FA] hover:bg-[#8DC9FA]/90"
+                        : "",
+                    )}
+                    onClick={() => {
+                      if (activeCategories.includes(category)) {
+                        setActiveCategories(
+                          activeCategories.filter((c) => c !== category),
+                        );
+                      } else {
+                        setActiveCategories([...activeCategories, category]);
+                      }
+                    }}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAllCategories(!showAllCategories)}
+                >
+                  {showAllCategories ? (
+                    <>
+                      Show Less Categories <ChevronUp />
+                    </>
+                  ) : (
+                    <>
+                      Show More Categories <ChevronDown />{" "}
+                    </>
+                  )}
+                </Button>
+              </div>
             </Card>
 
             <div className="mt-8 w-full md:w-[750px] flex flex-col gap-2">
