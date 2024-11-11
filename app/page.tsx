@@ -61,7 +61,7 @@ export default function Home() {
                 </a>
               </p>
               <Link href="/movies" className="w-full mt-4">
-                <Button className="mt-4" size={"lg"} className={"w-full"}>
+                <Button className="mt-4 w-full" size={"lg"}>
                   Try it out! <ExternalLink />
                 </Button>
               </Link>
