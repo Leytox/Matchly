@@ -11,16 +11,18 @@ export const getMovies = async (
     notes,
   );
   const uniqueMovieTitles = [...new Set(movieTitles)]; // Remove duplicates
-
+  console.log(uniqueMovieTitles);
   const movies = await Promise.all(
     uniqueMovieTitles.map(async (title) => {
       const data = await fetch(
         `https://www.omdbapi.com/?t=${title}&apiKey=${process.env.OMDB_API_KEY}`,
       );
       const movie = await data.json();
+      if (movie.Response === "False") return;
       return movie;
     }),
   );
+  console.log(movies);
   return movies;
 };
 

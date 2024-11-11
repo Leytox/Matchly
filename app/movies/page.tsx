@@ -8,6 +8,7 @@ import {
   ChevronUp,
   Loader2,
   Pen,
+  PlusCircle,
   Sparkles,
   X,
 } from "lucide-react";
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { MovieCard } from "@/components/movie-card";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 const initialCategories = [
   "Action",
@@ -87,20 +89,21 @@ export default function Movies() {
   const [loading, setLoading] = useState(false);
   const [person1Categories, setPerson1Categories] = useState<string[]>([]);
   const [person2Categories, setPerson2Categories] = useState<string[]>([]);
-  const [isCategoriesVisible, setIsCategoriesVisible] = useState(true);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const displayedCategories = showAllCategories
     ? [...initialCategories, ...additionalCategories]
     : initialCategories;
+  const [showNotesInput, setShowNotesInput] = useState(false);
   const [isPerson2, setIsPerson2] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
   const [notes, setNotes] = useState("");
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
-
+  const { toast } = useToast();
   const activeCategories = isPerson2 ? person2Categories : person1Categories;
   const setActiveCategories = isPerson2
     ? setPerson2Categories
     : setPerson1Categories;
+
   const handleClearPreferences = () => {
     if (isPerson2) {
       setPerson2Categories([]);
@@ -116,6 +119,11 @@ export default function Movies() {
         person2Categories,
         notes,
       );
+      if (!results)
+        return toast({
+          title: "An error occurred while generating recommendations",
+          variant: "destructive",
+        });
       setRecommendations(results);
       setIsGenerated(true);
       console.log(results);
@@ -134,111 +142,117 @@ export default function Movies() {
         {!isGenerated && (
           <>
             <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-row items-center justify-between mb-4">
+                <div />
+                <div className="flex flex-row gap-2 items-center relative translate-x-5">
                   <div className="size-6">
                     <Image
-                      src={isPerson2 ? "/red.svg" : "/blue.svg"}
+                      src={"/blue.svg"}
                       width={48}
                       height={48}
                       alt={"person"}
+                      className={`${isPerson2 ? "grayscale" : ""}`}
+                    />
+                  </div>
+                  <Switch
+                    id="person-switch"
+                    checked={isPerson2}
+                    onCheckedChange={setIsPerson2}
+                  />
+                  <div className="size-6 absolute right-0 translate-x-8 translate-y-1">
+                    <Image
+                      src={"/red.svg"}
+                      width={48}
+                      height={48}
+                      alt={"person"}
+                      className={`${!isPerson2 ? "grayscale" : ""}`}
                     />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleClearPreferences}
-                    disabled={activeCategories.length === 0}
-                  >
-                    <X className="h-4 w-4" /> Clear
-                  </Button>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="person-switch">Switch</Label>
-                    <Switch
-                      id="person-switch"
-                      checked={isPerson2}
-                      onCheckedChange={setIsPerson2}
-                    />
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsCategoriesVisible(!isCategoriesVisible)}
-                  >
-                    {isCategoriesVisible ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearPreferences}
+                  disabled={activeCategories.length === 0}
+                  className={
+                    activeCategories.length === 0 ? "text-background" : ""
+                  }
+                >
+                  <X /> Clear
+                </Button>
               </div>
-              {isCategoriesVisible && (
-                <>
-                  <div className="flex flex-wrap gap-2">
-                    {displayedCategories.map((category) => (
-                      <Button
-                        key={category}
-                        variant="outline"
-                        className={cn(
-                          "transition-colors",
-                          activeCategories.includes(category)
-                            ? isPerson2
-                              ? "bg-[#E26058] hover:bg-[#E26058]/90"
-                              : "bg-[#8DC9FA] hover:bg-[#8DC9FA]/90"
-                            : "",
-                        )}
-                        onClick={() => {
-                          if (activeCategories.includes(category)) {
-                            setActiveCategories(
-                              activeCategories.filter((c) => c !== category),
-                            );
-                          } else {
-                            setActiveCategories([
-                              ...activeCategories,
-                              category,
-                            ]);
-                          }
-                        }}
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex justify-center">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setShowAllCategories(!showAllCategories)}
-                    >
-                      {showAllCategories ? (
-                        <>
-                          Show Less Categories <ChevronUp />
-                        </>
-                      ) : (
-                        <>
-                          Show More Categories <ChevronDown />{" "}
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </>
-              )}
+              <div className="flex flex-wrap gap-2 justify-center items-center">
+                {displayedCategories.map((category) => (
+                  <Button
+                    key={category}
+                    variant="outline"
+                    className={cn(
+                      "transition-colors",
+                      activeCategories.includes(category)
+                        ? isPerson2
+                          ? "bg-[#E26058] hover:bg-[#E26058]/90"
+                          : "bg-[#8DC9FA] hover:bg-[#8DC9FA]/90"
+                        : "",
+                    )}
+                    onClick={() => {
+                      if (activeCategories.includes(category)) {
+                        setActiveCategories(
+                          activeCategories.filter((c) => c !== category),
+                        );
+                      } else {
+                        setActiveCategories([...activeCategories, category]);
+                      }
+                    }}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAllCategories(!showAllCategories)}
+                >
+                  {showAllCategories ? <ChevronUp /> : <ChevronDown />}
+                </Button>
+              </div>
             </Card>
 
-            <div className="mt-8 w-full md:w-[750px] flex flex-col gap-2">
-              <Label htmlFor="notes" className="flex gap-1 items-center">
-                <Pen size={16} /> Additional Notes (Optional)
-              </Label>
-              <Input
-                id="notes"
-                placeholder="E.g., We prefer movies from the last 10 years..."
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </div>
+            {!showNotesInput ? (
+              <Button
+                variant="ghost"
+                className="mt-4"
+                onClick={() => setShowNotesInput(true)}
+              >
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Additional Notes
+              </Button>
+            ) : (
+              <div className="mt-8 w-full md:w-[750px] flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="notes" className="flex gap-1 items-center">
+                    <Pen size={16} /> Additional Notes
+                  </Label>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setShowNotesInput(false);
+                      setNotes("");
+                    }}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Input
+                  id="notes"
+                  placeholder="We prefer movies from the last 10 years..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </div>
+            )}
 
             <Button
               className="mt-8"
