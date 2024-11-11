@@ -175,6 +175,11 @@ export default function Home() {
                   AI powered music recommendations to help you find new music
                   you and your friends will love.
                 </p>
+                <Link href="/music">
+                  <Button className="mt-4">
+                    Find Music <MoveRight />
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2">
