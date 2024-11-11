@@ -1,11 +1,11 @@
 import ChatBubble from "@/components/chat-bubble";
 import {
+  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Accordion } from "@radix-ui/react-accordion";
 import {
   BookMarked,
   ExternalLink,
@@ -22,11 +22,11 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="fullscreen-centered">
-      <div className="container">
+      <div className="container px-2 md:px-0">
         <div className="py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-            <div>
-              <h1 className="text-6xl font-semibold leading-tight">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center w-full">
+            <div className="flex flex-col w-full">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
                 Free AI powered recommendations for{" "}
                 <span className="bg-gradient-to-r from-orange-500 to-orange-800 bg-clip-text text-transparent">
                   movies
@@ -43,11 +43,25 @@ export default function Home() {
               </h1>
               <p className="font-semibolde max-w-xl">
                 Get personalized recommendations for movies, music and books
-                based on your preferences. No sign up required. Powered by
-                Ollama 3.2
+                based on your preferences. No sign up required. Powered by{" "}
+                <a
+                  href="https://ollama.com/"
+                  target="_blank"
+                  className="underline"
+                >
+                  Ollama 3.2
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://groq.com"
+                  target="_blank"
+                  className="underline"
+                >
+                  Groq
+                </a>
               </p>
-              <Link href="/movies">
-                <Button className="mt-4" size={"lg"}>
+              <Link href="/movies" className="w-full mt-4">
+                <Button className="mt-4 w-full" size={"lg"}>
                   Try it out! <ExternalLink />
                 </Button>
               </Link>
@@ -102,8 +116,8 @@ export default function Home() {
           <h2 className="text-4xl font-semibold text-center mb-12">
             What We Offer
           </h2>
-          <div className="grid grid-rows-3">
-            <div className="grid grid-cols-2">
+          <div className="grid grid-rows-3 gap-12 lg:gap-0 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
               <div>
                 <Image
                   src={"/movies.jpg"}
@@ -114,7 +128,7 @@ export default function Home() {
               </div>
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-semibold leading-normal flex items-center gap-2">
-                  <Film /> Tired of fighting over the remote?
+                  <Film /> Try a new movie
                 </h1>
                 <p className="max-w-lg text-center mt-4 overflow-wrap break-word">
                   Want to watch a movie but can&#39;t decide what to watch? Let
@@ -128,8 +142,32 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
+                <div className="hidden flex-col items-center lg:flex">
+                  <h1 className="text-3xl font-semibold leading-normal flex items-center gap-2">
+                    <Music /> Discover new music
+                  </h1>
+                  <p className="max-w-lg text-center mt-4 overflow-wrap break-word">
+                    AI powered music recommendations to help you find new music
+                    you and your friends will love.
+                  </p>
+                  <Link href="/music">
+                    <Button className="mt-4">
+                      Find Music <MoveRight />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <Image
+                  src={"/music.jpg"}
+                  width={800}
+                  height={400}
+                  alt={"music"}
+                />
+              </div>
+              <div className="flex flex-col items-center lg:hidden">
                 <h1 className="text-3xl font-semibold leading-normal flex items-center gap-2">
                   <Music /> Discover new music
                 </h1>
@@ -143,16 +181,8 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-              <div>
-                <Image
-                  src={"/music.jpg"}
-                  width={800}
-                  height={400}
-                  alt={"music"}
-                />
-              </div>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
               <div>
                 <Image
                   src={"/books.jpg"}
@@ -182,7 +212,7 @@ export default function Home() {
           <h2 className="text-4xl font-semibold text-center mb-12">
             How It Works
           </h2>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
               <div className="bg-orange-100 w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Share className="text-black" />
