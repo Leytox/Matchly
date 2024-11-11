@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Film, Loader2, Pen, Sparkles } from "lucide-react";
+import { Loader2, Pen, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { getMovies } from "@/server/actions";
 import { cn } from "@/lib/utils";
