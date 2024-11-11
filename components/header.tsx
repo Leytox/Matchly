@@ -3,7 +3,7 @@ import ThemeSwitcher from "./theme-switcher";
 import Link from "next/link";
 export default function Header() {
   return (
-    <header className="fixed w-full backdrop-blur-xl flex items-center justify-center p-4">
+    <header className="fixed z-50 w-full backdrop-blur-xl flex items-center justify-center p-4">
       <div></div>
       <div className="container flex justify-between items-center">
         <div className="flex gap-2 items-center justify-center">

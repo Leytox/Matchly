@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -45,9 +46,11 @@ export default function Home() {
                 based on your preferences. No sign up required. Powered by
                 Ollama 3.2
               </p>
-              <Button className="mt-4" size={"lg"}>
-                Try it out! <ExternalLink />
-              </Button>
+              <Link href="/movies">
+                <Button className="mt-4" size={"lg"}>
+                  Try it out! <ExternalLink />
+                </Button>
+              </Link>
             </div>
             <div>
               <ChatBubble
@@ -117,9 +120,12 @@ export default function Home() {
                   Want to watch a movie but can&#39;t decide what to watch? Let
                   AI help you find the perfect movie for your movie night.
                 </p>
-                <Button className="mt-4">
-                  Find Movies <MoveRight />
-                </Button>
+                <Link href="/movies">
+                  <Button className="mt-4">
+                    Find Movies
+                    <MoveRight />
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="grid grid-cols-2">
@@ -131,9 +137,11 @@ export default function Home() {
                   AI powered music recommendations to help you find new music
                   you and your friends will love.
                 </p>
-                <Button className="mt-4">
-                  Find Music <MoveRight />
-                </Button>
+                <Link href="/music">
+                  <Button className="mt-4">
+                    Find Music <MoveRight />
+                  </Button>
+                </Link>
               </div>
               <div>
                 <Image
@@ -161,9 +169,11 @@ export default function Home() {
                   Find the perfect book to read next with our AI powered book
                   recommendations.
                 </p>
-                <Button className="mt-4">
-                  Find Books <MoveRight />
-                </Button>
+                <Link href="/books">
+                  <Button className="mt-4">
+                    Find Books <MoveRight />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
