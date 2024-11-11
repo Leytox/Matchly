@@ -6,7 +6,7 @@ interface ChatBubbleProps {
   userName: string;
   isRead?: boolean;
   isDelivered?: boolean;
-  messageStatus?: "sent" | "delivered" | "read" | "error";
+  messageStatus?: string;
 }
 
 const ChatBubble: React.FC<ChatBubbleProps> = ({

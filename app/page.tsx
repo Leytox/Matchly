@@ -1,4 +1,3 @@
-import ChatBubble from "@/components/chat-bubble";
 import {
   Accordion,
   AccordionContent,
@@ -7,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ChatSection } from "@/sections/chat-section";
 import {
   BookMarked,
   ExternalLink,
@@ -16,9 +16,9 @@ import {
   Share,
   Bot,
   Sparkles,
-  ChevronDown,
   CalendarClock,
   MessageCircleMore,
+  ChevronsDown,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,9 +26,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="fullscreen-centered">
-      <div className="container px-2 md:px-0">
-        <div className="min-h-screen flex">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center w-full">
+      <div className="container px-2 md:px-0 relative">
+        <div className="absolute w-[800px] h-[800px] bg-gradient-to-r from-orange-500/50 dark:from-orange-500/20 via-blue-500/50 dark:via-blue-500/20 to-green-500/50 dark:to-green-500/20 rounded-full top-8 right-1/4 blur-3xl animate-pulse" />
+        <div className="min-h-screen flex relative overflow-hidden">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center w-full relative">
             <div className="flex flex-col justify-center w-full h-screen relative xl:items-start xl:justify-start xl:h-auto">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
                 Free AI powered recommendations for{" "}
@@ -73,7 +74,7 @@ export default function Home() {
                 href="#chat"
                 className="absolute bottom-0 -translate-y-24 flex flex-col gap-4 w-full items-center xl:hidden"
               >
-                <ChevronDown />
+                <ChevronsDown />
                 Scroll
               </a>
             </div>
@@ -81,48 +82,33 @@ export default function Home() {
               id="chat"
               className="flex flex-col justify-center w-full h-screen xl:block xl:h-auto"
             >
-              <ChatBubble
-                message="Movie night tonight? 🎬"
-                isSender={true}
-                userName="Alex"
-                messageStatus="read"
-              />
-              <ChatBubble
-                message="Sure! No superhero movies though 😫"
-                isSender={false}
-                userName="Jordan"
-                messageStatus="delivered"
-              />
-              <ChatBubble
-                message="No artsy films either! 🙄"
-                isSender={true}
-                userName="Alex"
-                messageStatus="read"
-              />
-              <ChatBubble
-                message="Found this AI recommendations site - could help us pick!"
-                isSender={false}
-                userName="Jordan"
-                messageStatus="delivered"
-              />
-              <ChatBubble
-                message="*shares link* Uses both our tastes to find matches 😅"
-                isSender={false}
-                userName="Jordan"
-                messageStatus="delivered"
-              />
-              <ChatBubble
-                message="Cool! Works for music too. No more jazz debates! 😂"
-                isSender={true}
-                userName="Alex"
-                messageStatus="read"
-              />
-              <ChatBubble
-                message="Jazz is art! 🎷 But yeah, let's try it!"
-                isSender={false}
-                userName="Jordan"
-                messageStatus="delivered"
-              />
+              <ChatSection />
+            </div>
+          </div>
+        </div>
+
+        <div className="py-20">
+          <div className="container">
+            <h2 className="text-4xl font-semibold text-center mb-12">
+              Why Choose Us
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <h3 className="text-4xl font-bold text-orange-500">100K+</h3>
+                <p className="text-gray-600">Happy Users</p>
+              </div>
+              <div>
+                <h3 className="text-4xl font-bold text-blue-500">500K+</h3>
+                <p className="text-gray-600">Recommendations Made</p>
+              </div>
+              <div>
+                <h3 className="text-4xl font-bold text-green-500">95%</h3>
+                <p className="text-gray-600">Satisfaction Rate</p>
+              </div>
+              <div>
+                <h3 className="text-4xl font-bold text-purple-500">24/7</h3>
+                <p className="text-gray-600">AI Availability</p>
+              </div>
             </div>
           </div>
         </div>
@@ -138,6 +124,7 @@ export default function Home() {
                   width={800}
                   height={400}
                   alt={"movies"}
+                  className="rounded-md lg:rounded-br-none"
                 />
               </div>
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
@@ -179,6 +166,7 @@ export default function Home() {
                   width={800}
                   height={400}
                   alt={"music"}
+                  className="rounded-md lg:rounded-l-none"
                 />
               </div>
               <div className="flex flex-col items-center lg:hidden">
@@ -203,6 +191,7 @@ export default function Home() {
                   width={800}
                   height={400}
                   alt={"books"}
+                  className="rounded-md lg:rounded-tr-none"
                 />
               </div>
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
@@ -309,6 +298,73 @@ export default function Home() {
                 <p className="text-gray-600">
                   Keep track of content you want to enjoy later
                 </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+        <div className="py-20">
+          <h2 className="text-4xl font-semibold text-center mb-12">
+            What People Say About Us
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="p-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+                    JD
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">John Doe</h4>
+                    <p className="text-sm text-gray-500">Movie Enthusiast</p>
+                  </div>
+                </div>
+                <p className="text-gray-600">
+                  &quot;This AI recommendation system is incredible! It helped
+                  me discover some hidden gems I would have never found
+                  otherwise. Definitely my go-to for movie night suggestions
+                  now.&quot;
+                </p>
+                <div className="flex text-yellow-400">{"★".repeat(5)}</div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white font-semibold">
+                    SJ
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Sarah Johnson</h4>
+                    <p className="text-sm text-gray-500">Book Lover</p>
+                  </div>
+                </div>
+                <p className="text-gray-600">
+                  &quot;I love how the recommendations are tailored to my
+                  specific interests. The AI seems to really understand what
+                  I&lsquo;m looking for in books and movies.&quot;
+                </p>
+                <div className="flex text-yellow-400">{"★".repeat(5)}</div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-semibold">
+                    MP
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Mike Peterson</h4>
+                    <p className="text-sm text-gray-500">Music Fan</p>
+                  </div>
+                </div>
+                <p className="text-gray-600">
+                  &quot;The best part is how easy it is to use. No complicated
+                  setup, just straight to great recommendations. And
+                  they&lsquo;re surprisingly accurate!&quot;
+                </p>
+                <div className="flex text-yellow-400">{"★".repeat(5)}</div>
               </div>
             </Card>
           </div>

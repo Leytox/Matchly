@@ -8,6 +8,7 @@ import {
   ChevronUp,
   Loader2,
   Pen,
+  PlusCircle,
   Sparkles,
   X,
 } from "lucide-react";
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { MovieCard } from "@/components/movie-card";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 const initialCategories = [
   "Action",
@@ -91,15 +93,17 @@ export default function Movies() {
   const displayedCategories = showAllCategories
     ? [...initialCategories, ...additionalCategories]
     : initialCategories;
+  const [showNotesInput, setShowNotesInput] = useState(false);
   const [isPerson2, setIsPerson2] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
   const [notes, setNotes] = useState("");
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
-
+  const { toast } = useToast();
   const activeCategories = isPerson2 ? person2Categories : person1Categories;
   const setActiveCategories = isPerson2
     ? setPerson2Categories
     : setPerson1Categories;
+
   const handleClearPreferences = () => {
     if (isPerson2) {
       setPerson2Categories([]);
@@ -115,6 +119,11 @@ export default function Movies() {
         person2Categories,
         notes,
       );
+      if (!results)
+        return toast({
+          title: "An error occurred while generating recommendations",
+          variant: "destructive",
+        });
       setRecommendations(results);
       setIsGenerated(true);
       console.log(results);
@@ -128,14 +137,14 @@ export default function Movies() {
     <main className="fullscreen-centered">
       <div className="container flex flex-col items-center px-2 md:px-0">
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
-          Movies Recommendations
+          Movie Recommendations
         </h1>
         {!isGenerated && (
           <>
             <Card className="p-6">
               <div className="flex flex-row items-center justify-between mb-4">
                 <div />
-                <div className="flex flex-row gap-2 items-center relative translate-x-4">
+                <div className="flex flex-row gap-2 items-center relative translate-x-5">
                   <div className="size-6">
                     <Image
                       src={"/blue.svg"}
@@ -165,11 +174,14 @@ export default function Movies() {
                   size="sm"
                   onClick={handleClearPreferences}
                   disabled={activeCategories.length === 0}
+                  className={
+                    activeCategories.length === 0 ? "text-background" : ""
+                  }
                 >
                   <X /> Clear
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-center items-center">
                 {displayedCategories.map((category) => (
                   <Button
                     key={category}
@@ -202,30 +214,45 @@ export default function Movies() {
                   size="sm"
                   onClick={() => setShowAllCategories(!showAllCategories)}
                 >
-                  {showAllCategories ? (
-                    <>
-                      Show Less Categories <ChevronUp />
-                    </>
-                  ) : (
-                    <>
-                      Show More Categories <ChevronDown />{" "}
-                    </>
-                  )}
+                  {showAllCategories ? <ChevronUp /> : <ChevronDown />}
                 </Button>
               </div>
             </Card>
 
-            <div className="mt-8 w-full md:w-[750px] flex flex-col gap-2">
-              <Label htmlFor="notes" className="flex gap-1 items-center">
-                <Pen size={16} /> Additional Notes (Optional)
-              </Label>
-              <Input
-                id="notes"
-                placeholder="E.g., We prefer movies from the last 10 years..."
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </div>
+            {!showNotesInput ? (
+              <Button
+                variant="ghost"
+                className="mt-4"
+                onClick={() => setShowNotesInput(true)}
+              >
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Additional Notes
+              </Button>
+            ) : (
+              <div className="mt-8 w-full md:w-[750px] flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="notes" className="flex gap-1 items-center">
+                    <Pen size={16} /> Additional Notes
+                  </Label>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setShowNotesInput(false);
+                      setNotes("");
+                    }}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Input
+                  id="notes"
+                  placeholder="We prefer movies from the last 10 years..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </div>
+            )}
 
             <Button
               className="mt-8"
