@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Raleway } from "next/font/google";
+import { Raleway, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -16,7 +16,7 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "MediaMatch",
+  title: "Matchly",
   description: "Created by Leytox - A comprehensive media matching platform",
   keywords: [
     "media matching",
