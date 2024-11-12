@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import ChatBubble from "@/components/chat-bubble";
 
-export const ChatSection = () => {
+export const Chat = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
