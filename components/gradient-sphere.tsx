@@ -14,9 +14,11 @@ const gradientSphere = cva(
         default:
           "from-orange-500/50 dark:from-orange-500/20 via-blue-500/50 dark:via-blue-500/20 to-green-500/50 dark:to-green-500/20",
         secondary:
-          "from-yellow-500/50 dark:from-yellow-500/20 via-red-500/50 dark:via-red-500/20 to-fuchsia-500/50 dark:to-fuchsia-500/20",
-        tertiary:
           "from-purple-500/50 dark:from-purple-500/20 via-green-500/50 dark:via-green-500/20 to-orange-500/50 dark:to-orange-500/20",
+        red: "from-orange-300/50 dark:from-orange-300/20 via-red-500/50 dark:via-red-500/20 to-red-700/50 dark:to-red-700/20",
+        green:
+          "from-green-300/50 dark:from-green-300/20 via-green-500/50 dark:via-green-500/20 to-green-700/50 dark:to-green-700/20",
+        blue: "from-blue-300/50 dark:from-blue-300/20 via-blue-500/50 dark:via-blue-500/20 to-blue-700/50 dark:to-blue-700/20",
       },
       position: {
         left: "left-0",
@@ -36,7 +38,7 @@ const gradientSphere = cva(
 export const GradientSphere = (
   props: {
     size?: "sm" | "md" | "lg";
-    color?: "default" | "secondary" | "tertiary";
+    color?: "default" | "secondary" | "red" | "green" | "blue";
     hide?: "hidden";
     position?: "left" | "right" | "center";
     className?: string;
