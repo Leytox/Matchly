@@ -136,15 +136,12 @@ export default function Movies() {
   return (
     <main className="fullscreen-centered">
       <div className="container flex flex-col items-center px-2 md:px-0">
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
-          Movie Recommendations
-        </h1>
         {!isGenerated && (
           <>
             <Card className="p-6">
               <div className="flex flex-row items-center justify-between mb-4">
                 <div />
-                <div className="flex flex-row gap-2 items-center relative translate-x-5">
+                <div className="flex flex-row gap-2 items-center relative">
                   <div className="size-6">
                     <Image
                       src={"/blue.svg"}
@@ -278,6 +275,9 @@ export default function Movies() {
         )}
         {isGenerated && (
           <div className="flex flex-col items-center">
+            <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
+              Movie Recommendations
+            </h1>
             <div className="flex flex-1 gap-4 flex-wrap items-center justify-center">
               {recommendations.map((movie) => (
                 <MovieCard key={movie.Title} {...movie} />

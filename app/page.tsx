@@ -1,3 +1,4 @@
+import { GradientSphere } from "@/components/gradient-sphere";
 import {
   Accordion,
   AccordionContent,
@@ -19,6 +20,11 @@ import {
   CalendarClock,
   MessageCircleMore,
   ChevronsDown,
+  CircleHelp,
+  Package,
+  Cog,
+  Speech,
+  MailQuestion,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +33,8 @@ export default function Home() {
   return (
     <main className="fullscreen-centered">
       <div className="container px-2 md:px-0 relative">
-        <div className="absolute w-[800px] h-[800px] bg-gradient-to-r from-orange-500/50 dark:from-orange-500/20 via-blue-500/50 dark:via-blue-500/20 to-green-500/50 dark:to-green-500/20 rounded-full top-8 right-1/4 blur-3xl animate-pulse" />
+        <GradientSphere position="center" />
+
         <div className="min-h-screen flex relative overflow-hidden">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center w-full relative">
             <div className="flex flex-col justify-center w-full h-screen relative xl:items-start xl:justify-start xl:h-auto">
@@ -72,7 +79,7 @@ export default function Home() {
               </a>
               <a
                 href="#chat"
-                className="absolute bottom-0 -translate-y-24 flex flex-col gap-4 w-full items-center xl:hidden"
+                className="absolute bottom-0 -translate-y-20 flex flex-col gap-4 w-full items-center xl:hidden"
               >
                 <ChevronsDown />
                 Scroll
@@ -80,7 +87,7 @@ export default function Home() {
             </div>
             <div
               id="chat"
-              className="flex flex-col justify-center w-full h-screen xl:block xl:h-auto"
+              className="flex flex-col justify-center w-full min-h-screen xl:block xl:h-auto"
             >
               <ChatSection />
             </div>
@@ -89,8 +96,8 @@ export default function Home() {
 
         <div className="py-20">
           <div className="container">
-            <h2 className="text-4xl font-semibold text-center mb-12">
-              Why Choose Us
+            <h2 className="items-center justify-center gap-4 text-4xl font-semibold text-center mb-12 flex">
+              Why Choose Us <CircleHelp size={36} />
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
@@ -112,19 +119,20 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <GradientSphere position="right" color="secondary" />
+
         <div className="py-20" id="offers">
-          <h2 className="text-4xl font-semibold text-center mb-12">
-            What We Offer
+          <h2 className="flex items-center justify-center gap-4 text-4xl font-semibold text-center mb-12">
+            What We Offer <Package size={36} />
           </h2>
           <div className="grid grid-rows-3 gap-12 lg:gap-0 ">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div>
+              <div className="rounded-md lg:rounded-br-none bg-gradient-to-br from-orange-800 via-orange-600 to-blue-400 p-1">
                 <Image
                   src={"/movies.jpg"}
                   width={800}
                   height={400}
                   alt={"movies"}
-                  className="rounded-md lg:rounded-br-none"
                 />
               </div>
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
@@ -160,13 +168,13 @@ export default function Home() {
                   {/*</Link> */}
                 </div>
               </div>
-              <div>
+              <div className="rounded-md lg:rounded-l-none bg-gradient-to-bl from-blue-600 via-blue-400 to-green-400 p-1">
                 <Image
                   src={"/music.jpg"}
                   width={800}
                   height={400}
                   alt={"music"}
-                  className="rounded-md lg:rounded-l-none"
+                  className=""
                 />
               </div>
               <div className="flex flex-col items-center lg:hidden">
@@ -185,13 +193,12 @@ export default function Home() {
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div>
+              <div className="rounded-md lg:rounded-tr-none bg-gradient-to-b from-green-400 via-green-600 to-green-800 p-1">
                 <Image
                   src={"/books.jpg"}
                   width={800}
                   height={400}
                   alt={"books"}
-                  className="rounded-md lg:rounded-tr-none"
                 />
               </div>
               <div className="h-full w-full inline-flex flex-col items-center justify-center">
@@ -211,9 +218,10 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <GradientSphere hide="hidden" position="left" />
         <div className="py-20">
-          <h2 className="text-4xl font-semibold text-center mb-12">
-            How It Works
+          <h2 className="flex items-center justify-center gap-4 text-4xl font-semibold text-center mb-12">
+            How It Works <Cog size={36} />
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-24 md:gap-12">
             <Card className="relative">
@@ -302,9 +310,12 @@ export default function Home() {
             </Card>
           </div>
         </div>
+
+        <GradientSphere position="center" color="tertiary" />
+
         <div className="py-20">
-          <h2 className="text-4xl font-semibold text-center mb-12">
-            What People Say About Us
+          <h2 className="flex items-center justify-center gap-4 text-4xl font-semibold text-center mb-12">
+            Reviews <Speech size={36} />
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="p-6">
@@ -369,14 +380,15 @@ export default function Home() {
             </Card>
           </div>
         </div>
+
         <div className="py-20">
-          <h2 className="text-4xl font-semibold text-center mb-12">
-            Frequently Asked Questions
+          <h2 className="flex items-center justify-center gap-4 text-4xl font-semibold text-center mb-12">
+            F.A.Q <MailQuestion size={36} />
           </h2>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-xl font-semobold">
                   Is this service really free?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -386,7 +398,7 @@ export default function Home() {
               </AccordionItem>
 
               <AccordionItem value="item-2">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-xl font-semobold">
                   How accurate are the recommendations?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -397,7 +409,7 @@ export default function Home() {
               </AccordionItem>
 
               <AccordionItem value="item-3">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-xl font-semobold">
                   Do I need to create an account?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -409,7 +421,7 @@ export default function Home() {
               </AccordionItem>
 
               <AccordionItem value="item-4">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-xl font-semobold">
                   How often are recommendations updated?
                 </AccordionTrigger>
                 <AccordionContent>

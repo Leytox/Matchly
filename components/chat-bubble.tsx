@@ -16,8 +16,10 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
   messageStatus = "sent",
 }) => {
   const bubbleAlignment = isSender ? "justify-end" : "justify-start";
-  const bubbleColor = isSender ? "bg-blue-500" : "bg-gray-200";
-  const textColor = isSender ? "text-white" : "text-gray-800";
+  const bubbleColor = isSender ? "bg-blue-500" : "dark:bg-gray-200 bg-gray-600";
+  const textColor = isSender
+    ? "text-white"
+    : "dark:text-gray-800 text-gray-100";
 
   const MessageStatusIcon = () => {
     switch (messageStatus) {

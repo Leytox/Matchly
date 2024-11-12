@@ -58,7 +58,7 @@
     }
 
     .fullscreen-centered {
-        @apply min-h-screen w-screen pt-20 flex flex-col items-center justify-center;
+        @apply min-h-screen pt-20 flex flex-col items-center justify-center overflow-hidden;
     }
 }
 @layer base {
