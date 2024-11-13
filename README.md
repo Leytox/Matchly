@@ -44,13 +44,13 @@ The Movie, Book, and Music Recommendation System is a web application built usin
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Leytox/MatchMedia.git
+   git clone https://github.com/Leytox/Matchly.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd MatchMedia
+   cd Matchly
    ```
 
 3. Install the dependencies:
