@@ -61,8 +61,6 @@ export const getMoviesRecomendations = async (
         }),
       },
     );
-    if (!response.ok)
-      throw new Error(`Error fetching data: ${response.statusText}`);
     const data = await response.json();
     return data.choices[0].message.content.split("\n");
   } catch (error) {
