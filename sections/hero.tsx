@@ -56,7 +56,7 @@ const Hero = () => {
           </div>
           <div
             id="chat"
-            className="flex flex-col justify-end items-end w-full min-h-screen xl:min-h-0"
+            className="flex flex-col justify-center items-center w-full min-h-screen xl:justify-end xl:items-end xl:min-h-0"
           >
             <Chat />
           </div>
