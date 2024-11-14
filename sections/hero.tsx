@@ -8,9 +8,9 @@ const Hero = () => {
   return (
     <div>
       <GradientSphere position="center" />
-      <div className="min-h-screen flex relative overflow-hidden">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center w-full relative">
-          <div className="flex flex-col justify-center w-full h-screen relative xl:items-start xl:justify-start xl:h-auto">
+      <div className="flex relative overflow-hidden items-center justify-center">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-8 items-center justify-center w-full">
+          <div className="flex flex-col justify-center w-full h-screen relative xl:items-start xl:justify-start xl:h-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
               Free AI powered recommendations for{" "}
               <span className="bg-gradient-to-r from-orange-500 to-orange-800 bg-clip-text text-transparent">
@@ -56,7 +56,7 @@ const Hero = () => {
           </div>
           <div
             id="chat"
-            className="flex flex-col justify-center w-full min-h-screen xl:block xl:h-auto"
+            className="flex flex-col justify-end items-end w-full min-h-screen xl:min-h-0"
           >
             <Chat />
           </div>
