@@ -14,6 +14,7 @@ export default function ThemeSwitcher() {
       onClick={() => {
         setTheme(theme === "light" ? "dark" : "light");
       }}
+      aria-label={"Toggle Theme"}
     >
       {theme === "light" ? <Moon /> : <Sun />}
     </Button>
