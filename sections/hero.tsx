@@ -41,13 +41,13 @@ const Hero = () => {
                 Groq
               </a>
             </p>
-            <a href="#offers" className="w-full mt-4">
+            <a href={"#offers"} className="w-full mt-4">
               <Button className="mt-4 w-full" size={"lg"}>
                 Try it out! <ExternalLink />
               </Button>
             </a>
             <a
-              href="#chat"
+              href={"#chat"}
               className="absolute bottom-0 -translate-y-20 flex flex-col gap-4 w-full items-center xl:hidden"
             >
               <ChevronsDown />
