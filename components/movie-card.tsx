@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import { Card } from "./ui/card";
 import Image from "next/image";
+
 type MovieCardProps = {
   Title: string;
   Year: string;
@@ -32,15 +33,18 @@ export const MovieCard = ({
     <Card className="overflow-hidden md:w-[750px] md:h-[450px]">
       <div className="flex flex-col md:flex-row">
         {/* Poster Section */}
-        <div className="relative w-full hidden md:block md:w-1/3 md:h-[450px]">
-          <Image
-            src={Poster}
-            alt={`${Title} poster`}
-            fill
-            sizes="100% 100%"
-            className="object-cover"
-          />
-        </div>
+
+        {Poster && Poster !== "N/A" && (
+          <div className="relative w-full hidden md:block md:w-1/3 md:h-[450px]">
+            <Image
+              src={Poster}
+              alt={`${Title} poster`}
+              fill
+              sizes="100% 100%"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         {/* Content Section */}
         <div className="p-4 flex-1">

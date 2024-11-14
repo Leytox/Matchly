@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import {
   ChevronDown,
   ChevronUp,
+  Film,
+  Frown,
   Loader2,
   Pen,
   PlusCircle,
@@ -16,9 +18,9 @@ import { useState } from "react";
 import { getMovies } from "@/server/actions";
 import { cn } from "@/lib/utils";
 import { MovieCard } from "@/components/movie-card";
-import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { GradientSphere } from "@/components/gradient-sphere";
 
 const initialCategories = [
   "Action",
@@ -136,47 +138,55 @@ export default function Movies() {
   return (
     <main className="fullscreen-centered">
       <div className="container flex flex-col items-center px-2 md:px-0">
+        <GradientSphere
+          size={"md"}
+          position={"center"}
+          color="red"
+          className=""
+        />
+        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
+          <Film size={32} /> Movies
+        </h1>
         {!isGenerated && (
           <>
             <Card className="p-6">
               <div className="flex flex-row items-center justify-between mb-4">
                 <div />
-                <div className="flex flex-row gap-2 items-center relative">
-                  <div className="size-6">
+                <div className="flex flex-row items-center relative">
+                  <div
+                    className={`size-8 duration-300 transition absolute right-0 translate-x-6 -translate-y-2 cursor-pointer ${isPerson2 ? "grayscale hover:grayscale-[50%]" : ""}`}
+                  >
                     <Image
                       src={"/blue.svg"}
                       width={48}
                       height={48}
                       alt={"person"}
-                      className={`${isPerson2 ? "grayscale" : ""}`}
+                      onClick={() => setIsPerson2(false)}
                     />
                   </div>
-                  <Switch
-                    id="person-switch"
-                    checked={isPerson2}
-                    onCheckedChange={setIsPerson2}
-                  />
-                  <div className="size-6 absolute right-0 translate-x-8 translate-y-1">
+                  <div
+                    className={`size-8 duration-300 transition cursor-pointer absolute right-0 translate-x-20 ${!isPerson2 ? "grayscale hover:grayscale-[50%]" : ""}`}
+                  >
                     <Image
                       src={"/red.svg"}
                       width={48}
                       height={48}
                       alt={"person"}
-                      className={`${!isPerson2 ? "grayscale" : ""}`}
+                      className={``}
+                      onClick={() => setIsPerson2(true)}
                     />
                   </div>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
+                <span
                   onClick={handleClearPreferences}
-                  disabled={activeCategories.length === 0}
-                  className={
-                    activeCategories.length === 0 ? "text-background" : ""
-                  }
+                  className={`flex gap-2 justify-center items-center ${
+                    activeCategories.length === 0
+                      ? "text-background select-none"
+                      : "cursor-pointer"
+                  }`}
                 >
                   <X /> Clear
-                </Button>
+                </span>
               </div>
               <div className="flex flex-wrap gap-2 justify-center items-center">
                 {displayedCategories.map((category) => (
@@ -192,13 +202,11 @@ export default function Movies() {
                         : "",
                     )}
                     onClick={() => {
-                      if (activeCategories.includes(category)) {
+                      if (activeCategories.includes(category))
                         setActiveCategories(
                           activeCategories.filter((c) => c !== category),
                         );
-                      } else {
-                        setActiveCategories([...activeCategories, category]);
-                      }
+                      else setActiveCategories([...activeCategories, category]);
                     }}
                   >
                     {category}
@@ -250,7 +258,6 @@ export default function Movies() {
                 />
               </div>
             )}
-
             <Button
               className="mt-8"
               size="lg"
@@ -275,9 +282,11 @@ export default function Movies() {
         )}
         {isGenerated && (
           <div className="flex flex-col items-center">
-            <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
-              Movie Recommendations
-            </h1>
+            {recommendations.length === 0 ? (
+              <h2 className="text-2xl font-semibold text-center flex gap-2 items-center">
+                No recommendations found <Frown />
+              </h2>
+            ) : null}
             <div className="flex flex-1 gap-4 flex-wrap items-center justify-center">
               {recommendations.map((movie) => (
                 <MovieCard key={movie.Title} {...movie} />
