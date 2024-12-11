@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
+import GoTop from "@/components/go-top";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -59,6 +60,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <Toaster />
+          <GoTop />
         </ThemeProvider>
       </body>
     </html>
