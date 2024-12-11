@@ -1,6 +1,7 @@
-import { Star } from "lucide-react";
+import { ArrowUpRightSquare, Star } from "lucide-react";
 import { Card } from "./ui/card";
 import Image from "next/image";
+import React from "react";
 
 type MovieCardProps = {
   Title: string;
@@ -14,6 +15,7 @@ type MovieCardProps = {
   Poster: string;
   Ratings: Array<{ Source: string; Value: string }>;
   imdbRating: string;
+  imdbID?: string;
 };
 
 export const MovieCard = ({
@@ -28,6 +30,7 @@ export const MovieCard = ({
   Poster,
   Ratings,
   imdbRating,
+  imdbID,
 }: MovieCardProps) => {
   return (
     <Card className="overflow-hidden md:w-[750px] md:h-[450px]">
@@ -50,15 +53,25 @@ export const MovieCard = ({
         <div className="p-4 flex-1">
           <div className="space-y-4">
             {/* Header */}
-            <div>
-              <h2 className="text-2xl font-bold">{Title}</h2>
-              <div className="flex items-center gap-2 text-muted-foreground mt-1">
-                <span>{Year}</span>
-                <span>•</span>
-                <span>{Rated}</span>
-                <span>•</span>
-                <span>{Runtime}</span>
+            <div className={"flex justify-between"}>
+              <div>
+                <h2 className="text-2xl font-bold">{Title}</h2>
+                <div className="flex items-center gap-2 text-muted-foreground mt-1">
+                  <span>{Year}</span>
+                  <span>•</span>
+                  <span>{Rated}</span>
+                  <span>•</span>
+                  <span>{Runtime}</span>
+                </div>
               </div>
+              <a
+                href={`https://www.imdb.com/title/${imdbID}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View on IMDb"
+              >
+                <ArrowUpRightSquare />
+              </a>
             </div>
 
             {/* Ratings */}
@@ -92,7 +105,7 @@ export const MovieCard = ({
               <p className="text-muted-foreground">{Plot}</p>
             </div>
 
-            {/* IMDb Rating */}
+            {/* IMDb Rating*/}
             <div className="flex items-center gap-2">
               <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
               <span className="font-semibold">{imdbRating}</span>
