@@ -196,6 +196,7 @@ export default function Movies() {
                   setPerson2Categories([]);
                   setNotes("");
                 }}
+                disabled={loading}
               >
                 New Recommendations <Sparkles />
               </Button>
@@ -203,8 +204,18 @@ export default function Movies() {
                 className="mt-8"
                 size="lg"
                 onClick={() => handleGetMoreRecommendations()}
+                disabled={loading}
               >
-                Get more <Ellipsis />
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Getting
+                    Recommendations...
+                  </>
+                ) : (
+                  <>
+                    Get more <Ellipsis />
+                  </>
+                )}
               </Button>
             </div>
           </div>
