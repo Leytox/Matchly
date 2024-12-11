@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import {
   ChevronDown,
   ChevronUp,
+  Ellipsis,
   Film,
   Frown,
   Loader2,
@@ -134,20 +135,80 @@ export default function Movies() {
     }
     setLoading(false);
   };
+  const handleGetMoreRecommendations = async () => {
+    setLoading(true);
+    try {
+      const results = await getMovies(
+        person1Categories,
+        person2Categories,
+        notes,
+      );
+      if (!results)
+        return toast({
+          title: "An error occurred while fetching more recommendations",
+          variant: "destructive",
+        });
 
+      // Add new recommendations to the list, avoiding duplicates
+      setRecommendations((prev) => {
+        const uniqueResults = results.filter(
+          (movie) => !prev.some((existing) => existing.Title === movie.Title),
+        );
+        return [...prev, ...uniqueResults];
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
   return (
     <main className="fullscreen-centered">
       <div className="container flex flex-col items-center px-2 md:px-0">
         <GradientSphere
           size={"md"}
           position={"center"}
-          color="red"
+          color={isPerson2 ? "red" : "blue"}
           className=""
         />
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
           <Film size={32} /> Movies
         </h1>
-        {!isGenerated && (
+        {isGenerated ? (
+          <div className="flex flex-col items-center">
+            {recommendations.length === 0 ? (
+              <h2 className="text-2xl font-semibold text-center flex gap-2 items-center">
+                No recommendations found <Frown />
+              </h2>
+            ) : null}
+            <div className="flex flex-1 gap-4 flex-wrap items-center justify-center">
+              {recommendations.map((movie) => (
+                <MovieCard key={movie.Title} {...movie} />
+              ))}
+            </div>
+            <div className={"flex gap-2"}>
+              <Button
+                className="mt-8"
+                size="lg"
+                onClick={() => {
+                  setIsGenerated(false);
+                  setRecommendations([]);
+                  setPerson1Categories([]);
+                  setPerson2Categories([]);
+                  setNotes("");
+                }}
+              >
+                New Recommendations <Sparkles />
+              </Button>
+              <Button
+                className="mt-8"
+                size="lg"
+                onClick={() => handleGetMoreRecommendations()}
+              >
+                Get more <Ellipsis />
+              </Button>
+            </div>
+          </div>
+        ) : (
           <>
             <Card className="p-6">
               <div className="flex flex-row items-center justify-between mb-4">
@@ -279,33 +340,6 @@ export default function Movies() {
               )}
             </Button>
           </>
-        )}
-        {isGenerated && (
-          <div className="flex flex-col items-center">
-            {recommendations.length === 0 ? (
-              <h2 className="text-2xl font-semibold text-center flex gap-2 items-center">
-                No recommendations found <Frown />
-              </h2>
-            ) : null}
-            <div className="flex flex-1 gap-4 flex-wrap items-center justify-center">
-              {recommendations.map((movie) => (
-                <MovieCard key={movie.Title} {...movie} />
-              ))}
-            </div>
-            <Button
-              className="mt-8"
-              size="lg"
-              onClick={() => {
-                setIsGenerated(false);
-                setRecommendations([]);
-                setPerson1Categories([]);
-                setPerson2Categories([]);
-                setNotes("");
-              }}
-            >
-              New Recommendations <Sparkles />
-            </Button>
-          </div>
         )}
       </div>
     </main>
