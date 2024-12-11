@@ -16,7 +16,7 @@ const GoTop = () => {
   return (
     <div
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`${shown ? "fixed flex justify-center items-center bottom-6 right-4 size-12 border border-white rounded-full text-white cursor-pointer" : "hidden"}`}
+      className={`${shown ? "fixed flex justify-center items-center bottom-6 right-4 size-12 bg-accent rounded-full cursor-pointer" : "hidden"}`}
     >
       <ArrowUp />
     </div>
